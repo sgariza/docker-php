@@ -15,10 +15,8 @@ COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr
 COPY --from=composer/composer:2-bin /composer /usr/bin/composer
 
 # Install php extensions
-RUN set -eux; \
-    install-php-extensions \
-        gd xdebug pdo_mysql mysqli dip intl \
-    ;
+RUN set -eux
+RUN install-php-extensions gd xdebug pdo_mysql mysqli dip intl
 
 # Install ping
 RUN apt-get install -y --no-install-recommends iputils-ping
