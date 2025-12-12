@@ -20,7 +20,12 @@ COPY --from=composer/composer:2-bin /composer /usr/bin/composer
 
 # Install php extensions
 RUN set -eux
-RUN install-php-extensions gd xdebug pdo_mysql mysqli dip intl
+RUN install-php-extensions gd
+RUN install-php-extensions xdebug
+RUN install-php-extensions pdo_mysql
+RUN install-php-extensions mysqli
+RUN install-php-extensions dip
+RUN install-php-extensions intl
 
 # Install ping
 RUN apt-get install -y --no-install-recommends iputils-ping
