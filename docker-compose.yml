@@ -6,8 +6,6 @@ services:
       dockerfile: "docker/web/Dockerfile"
     volumes:
       - ./:/var/www/html/
-      - ./docker/certificates/example.test.pem:/etc/ssl/web/ssl.crt
-      - ./docker/certificates/example.test-key.pem:/etc/ssl/web/ssl.key
     ports:
       - "80:80"
       - "443:443"
