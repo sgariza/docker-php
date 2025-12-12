@@ -23,7 +23,9 @@ RUN set -eux
 RUN install-php-extensions gd xdebug pdo_mysql mysqli zip intl
 
 # Install ping
-RUN apt-get install -y iputils-ping
+RUN apt-get update && \ 
+    apt-get install -y iputils-ping && \
+    rm -rf /var/lib/apt/lists/*
 
 # Copy custom configs into place
 COPY docker/web/configs/php/*.ini $PHP_INI_DIR/conf.d/
