@@ -12,7 +12,8 @@ COPY ./docker/web/configs/apache/sites-enabled/* /etc/apache2/sites-enabled/
 COPY --from=composer/composer:2-bin /composer /usr/bin/composer
 
 # Install php extensions
-RUN ( curl -sSLf https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions -o - || echo 'return 1' ) | sh -s \
+ 	
+RUN curl -sSLf -o /usr/local/bin/install-php-extensions https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions && chmod +x /usr/local/bin/install-php-extensions && install-php-extensions \
     gd xdebug pdo_mysql mysqli dip intl
 
 # Install ping
