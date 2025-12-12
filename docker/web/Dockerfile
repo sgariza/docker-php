@@ -8,13 +8,17 @@ RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf
 # Add configs
 COPY ./docker/web/configs/apache/sites-enabled/* /etc/apache2/sites-enabled/
 
+# php extensions installer: https://github.com/mlocati/docker-php-extension-installer
+COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
+
 # install composer
 COPY --from=composer/composer:2-bin /composer /usr/bin/composer
 
 # Install php extensions
- 	
-RUN curl -sSLf -o /usr/local/bin/install-php-extensions https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions && chmod +x /usr/local/bin/install-php-extensions && install-php-extensions \
-    gd xdebug pdo_mysql mysqli dip intl
+RUN set -eux; \
+    install-php-extensions \
+        gd xdebug pdo_mysql mysqli dip intl \
+    ;
 
 # Install ping
 RUN apt-get install -y --no-install-recommends iputils-ping
