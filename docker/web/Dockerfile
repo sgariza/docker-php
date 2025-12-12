@@ -1,4 +1,4 @@
-FROM php:8.1-apache AS app_php
+FROM php:8.4-apache
 
 # Change docroot
 ENV APACHE_DOCUMENT_ROOT /var/www/html/
@@ -18,6 +18,11 @@ COPY --from=composer/composer:2-bin /composer /usr/bin/composer
 RUN set -eux; \
     install-php-extensions \
         xdebug \
+        pdo_mysql \
+        mysqli \
+        gd \
+        dip \
+        intl \
     ;
 
 # Copy custom configs into place
@@ -30,3 +35,9 @@ RUN a2enmod ssl \
     && a2enmod mime \
     && a2enmod rewrite
 
+# SSL 	
+RUN mkdir -p /etc/apache2/ssl
+RUN openssl req -new -newkey rsa:4096 -days 3650 -nodes -x509 -subj "/C=../ST=...../L=..../O=..../CN=..." -keyout /etc/apache2/ssl/ssl.key -out /etc/apache2/ssl/ssl.crt 
+
+# Ports exposed
+EXPOSE 443 
