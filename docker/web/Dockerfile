@@ -15,11 +15,8 @@ COPY --from=mlocati/docker-php-extension-installer /usr/bin/install-php-extensio
 COPY --from=composer/composer:2-bin /composer /usr/bin/composer
 
 # Install php extensions
-RUN curl -sSLf \
-        -o /usr/local/bin/install-php-extensions \
-        https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions && \
-    chmod +x /usr/local/bin/install-php-extensions && \
-    install-php-extensions gd xdebug pdo_mysql mysqli dip intl
+RUN ( curl -sSLf https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions -o - || echo 'return 1' ) | sh -s \
+    gd xdebug pdo_mysql mysqli dip intl
 
 # Install ping
 RUN apt-get install -y --no-install-recommends iputils-ping
