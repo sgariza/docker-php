@@ -4,7 +4,6 @@ services:
     build:
       context: .
       dockerfile: "docker/web/Dockerfile"
-      image: php:8.4
     volumes:
       - ./:/var/www/html/
     ports:
