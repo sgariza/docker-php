@@ -24,7 +24,7 @@ RUN install-php-extensions gd xdebug pdo_mysql mysqli zip intl
 
 # Install ping
 RUN apt-get update && \ 
-    apt-get install -y iputils-ping && \
+    apt-get install -y iputils-ping snmp && \
     rm -rf /var/lib/apt/lists/*
 
 # Copy custom configs into place
