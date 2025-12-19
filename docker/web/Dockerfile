@@ -20,7 +20,7 @@ COPY --from=composer/composer:2-bin /composer /usr/bin/composer
 
 # Install php extensions
 RUN set -eux
-RUN install-php-extensions gd xdebug pdo_mysql mysqli zip intl
+RUN install-php-extensions gd xdebug pdo_mysql mysqli zip intl dhcp
 
 # Install ping
 RUN apt-get update && \ 
