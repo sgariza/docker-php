@@ -20,11 +20,11 @@ COPY --from=composer/composer:2-bin /composer /usr/bin/composer
 
 # Install php extensions
 RUN set -eux
-RUN install-php-extensions gd xdebug pdo_mysql mysqli zip intl dhcp
+RUN install-php-extensions gd xdebug pdo_mysql mysqli zip intl
 
 # Install ping
 RUN apt-get update && \ 
-    apt-get install -y iputils-ping snmp && \
+    apt-get install -y iputils-ping snmp php-snmp && \
     rm -rf /var/lib/apt/lists/*
 
 # Copy custom configs into place
